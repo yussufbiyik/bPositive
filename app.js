@@ -131,7 +131,7 @@ document.body.onload = () => {
 
     const message = document.getElementById('message');
     message.innerText = POSITIVE_SENTENCES[Math.floor(Math.random()*POSITIVE_SENTENCES.length)];
-    message.style.webkitTextStroke = `1px ${SECONDARY_COLOR}`;
+//     message.style.webkitTextStroke = `1px ${SECONDARY_COLOR}`;
 
     const CIRCLE_ANIMATON_DURATION = 2000;
     const SHADOW_MOVE_VALUE = 80;
