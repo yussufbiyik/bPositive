@@ -84,7 +84,7 @@ const POSITIVE_SENTENCES = [
     "Your passion can change the world around you"
 ];
 
-function hexToHSL(hex) {
+function hexToHSL(hex, invert) {
     const brightnessAdjustment = Math.floor(Math.random() * (80 - (-80) + 1)) + (-80);
     // Convert hex to RGB first
     var bigint = parseInt(hex, 16);
@@ -119,6 +119,9 @@ function hexToHSL(hex) {
     l = (cmax + cmin) / 2;
     s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
     s = +(s * 100).toFixed(1);
+    if(invert && invert === true) {
+        h = (h+180>360) ? h-180 : h+180;
+    }
     l = Math.min(Math.max(l + brightnessAdjustment, 0), 100); // Adjust the lightness value
 
     return "hsl(" + h + "," + s + "%," + l + "%)";
@@ -128,6 +131,8 @@ function hexToHSL(hex) {
 document.body.onload = () => {
     const PRIMARY_COLOR = CENTER_COLOR_HEX_VALUES[Math.floor(Math.random() * CENTER_COLOR_HEX_VALUES.length)];
     const SECONDARY_COLOR = hexToHSL(PRIMARY_COLOR.slice(1));
+    const THIRD_COLOR = hexToHSL(PRIMARY_COLOR.slice(1), true);
+    console.log(PRIMARY_COLOR, THIRD_COLOR)
 
     const message = document.getElementById('message');
     message.innerText = POSITIVE_SENTENCES[Math.floor(Math.random()*POSITIVE_SENTENCES.length)];
@@ -140,6 +145,7 @@ document.body.onload = () => {
     
     const circle = document.getElementById('circle');
     circle.style.background = PRIMARY_COLOR;
+    circle.style.boxShadow = `inset 0 0 100px ${THIRD_COLOR}`
     circle.animate(
         [
             {
@@ -169,7 +175,7 @@ document.body.onload = () => {
                 },
                 {
                     width: "300px",
-                    filter: `blur(40px) 
+                    filter: `blur(40px)
                     drop-shadow(${shadowMoveAmountX}px ${shadowMoveAmountY}px 20px ${SECONDARY_COLOR}) 
                     drop-shadow(${shadowMoveAmountX}px ${shadowMoveAmountY}px 40px ${SECONDARY_COLOR}) 
                     drop-shadow(${shadowMoveAmountXSecondary}px ${shadowMoveAmountYSecondary}px 20px ${PRIMARY_COLOR})
