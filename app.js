@@ -126,20 +126,20 @@ function hexToHSL(hex) {
 
 
 document.body.onload = () => {
-    const NEW_COLOR = CENTER_COLOR_HEX_VALUES[Math.floor(Math.random() * CENTER_COLOR_HEX_VALUES.length)];
-    const SECONDARY_COLOR = hexToHSL(NEW_COLOR.slice(1));
+    const PRIMARY_COLOR = CENTER_COLOR_HEX_VALUES[Math.floor(Math.random() * CENTER_COLOR_HEX_VALUES.length)];
+    const SECONDARY_COLOR = hexToHSL(PRIMARY_COLOR.slice(1));
 
     const message = document.getElementById('message');
     message.innerText = POSITIVE_SENTENCES[Math.floor(Math.random()*POSITIVE_SENTENCES.length)];
-//     message.style.webkitTextStroke = `1px ${SECONDARY_COLOR}`;
+    // message.style.webkitTextStroke = `1px ${SECONDARY_COLOR}`;
 
     const CIRCLE_ANIMATON_DURATION = 2000;
-    const SHADOW_MOVE_VALUE = 80;
+    const SHADOW_MOVE_VALUE = 50;
     var shadowMoveAmountX = Math.floor(Math.random() * (SHADOW_MOVE_VALUE - (-SHADOW_MOVE_VALUE) + 1)) + (-SHADOW_MOVE_VALUE);
     var shadowMoveAmountY = Math.floor(Math.random() * (SHADOW_MOVE_VALUE - (-SHADOW_MOVE_VALUE) + 1)) + (-SHADOW_MOVE_VALUE);
     
     const circle = document.getElementById('circle');
-    circle.style.background = NEW_COLOR;
+    circle.style.background = PRIMARY_COLOR;
     circle.animate(
         [
             {
@@ -158,8 +158,10 @@ document.body.onload = () => {
         }
     )
     setInterval(() =>{
-    shadowMoveAmountX = Math.floor(Math.random() * (SHADOW_MOVE_VALUE - (-SHADOW_MOVE_VALUE) + 1)) + (-SHADOW_MOVE_VALUE);
-    shadowMoveAmountY = Math.floor(Math.random() * (SHADOW_MOVE_VALUE - (-SHADOW_MOVE_VALUE) + 1)) + (-SHADOW_MOVE_VALUE);
+        shadowMoveAmountX = Math.floor(Math.random() * (SHADOW_MOVE_VALUE - (-SHADOW_MOVE_VALUE) + 1)) + (-SHADOW_MOVE_VALUE);
+        shadowMoveAmountY = Math.floor(Math.random() * (SHADOW_MOVE_VALUE - (-SHADOW_MOVE_VALUE) + 1)) + (-SHADOW_MOVE_VALUE);
+        var shadowMoveAmountXSecondary = Math.floor(Math.random() * (SHADOW_MOVE_VALUE - (-SHADOW_MOVE_VALUE) + 1)) + (-SHADOW_MOVE_VALUE);
+        var shadowMoveAmountYSecondary = Math.floor(Math.random() * (SHADOW_MOVE_VALUE - (-SHADOW_MOVE_VALUE) + 1)) + (-SHADOW_MOVE_VALUE);
         circle.animate(
             [
                 {
@@ -167,7 +169,11 @@ document.body.onload = () => {
                 },
                 {
                     width: "300px",
-                    filter: `blur(40px) drop-shadow(${shadowMoveAmountX}px ${shadowMoveAmountY}px 20px ${SECONDARY_COLOR})`
+                    filter: `blur(40px) 
+                    drop-shadow(${shadowMoveAmountX}px ${shadowMoveAmountY}px 20px ${SECONDARY_COLOR}) 
+                    drop-shadow(${shadowMoveAmountX}px ${shadowMoveAmountY}px 40px ${SECONDARY_COLOR}) 
+                    drop-shadow(${shadowMoveAmountXSecondary}px ${shadowMoveAmountYSecondary}px 20px ${PRIMARY_COLOR})
+                    drop-shadow(${shadowMoveAmountXSecondary}px ${shadowMoveAmountYSecondary}px 40px ${PRIMARY_COLOR})`
                 },
                 {
                     filter: "blur(30px)"
