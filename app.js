@@ -13,8 +13,8 @@ const CENTER_COLOR_HEX_VALUES = [
 // Let me know if there are some low quality sentences
 const POSITIVE_SENTENCES = [
     "be happy with what you have while you work for what you want",
-    "There's no right time,  JUST TIME and what you do with it",
-    "You inspire people who pretend to not evet see you",
+    "There's no right time, JUST TIME and what you do with it",
+    "You inspire people who pretend to not even see you",
     "expect nothing, appreciate everything",
     "most people don't know themselves, so what does it matter what they think of you",
     "Every day is a new opportunity to create something amazing", 
