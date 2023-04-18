@@ -127,12 +127,10 @@ function hexToHSL(hex, invert) {
     return "hsl(" + h + "," + s + "%," + l + "%)";
 }
 
-
 document.body.onload = () => {
     const PRIMARY_COLOR = CENTER_COLOR_HEX_VALUES[Math.floor(Math.random() * CENTER_COLOR_HEX_VALUES.length)];
     const SECONDARY_COLOR = hexToHSL(PRIMARY_COLOR.slice(1));
     const THIRD_COLOR = hexToHSL(PRIMARY_COLOR.slice(1), true);
-    console.log(PRIMARY_COLOR, THIRD_COLOR)
 
     const message = document.getElementById('message');
     message.innerText = POSITIVE_SENTENCES[Math.floor(Math.random()*POSITIVE_SENTENCES.length)];
