@@ -187,14 +187,30 @@ function hexToHSL(hex, invert) {
     return "hsl(" + h + "," + s + "%," + l + "%)";
 }
 
-document.body.onload = () => {
-    const PRIMARY_COLOR = CENTER_COLOR_HEX_VALUES[Math.floor(Math.random() * CENTER_COLOR_HEX_VALUES.length)];
-    const SECONDARY_COLOR = hexToHSL(PRIMARY_COLOR.slice(1));
-    const THIRD_COLOR = hexToHSL(PRIMARY_COLOR.slice(1), true);
+var primaryColor = CENTER_COLOR_HEX_VALUES[Math.floor(Math.random() * CENTER_COLOR_HEX_VALUES.length)];
+var secondaryColor = hexToHSL(primaryColor.slice(1));
+var thirdColor = hexToHSL(primaryColor.slice(1), true);
 
+document.body.onclick = () => {
+    const message = document.getElementById('message');
+    message.animate([
+        {opacity:"1"},
+        {opacity:"0"},
+        {opacity:"1"},
+    ], {duration:300, iterations:1})
+    setTimeout(() => {
+        primaryColor = CENTER_COLOR_HEX_VALUES[Math.floor(Math.random() * CENTER_COLOR_HEX_VALUES.length)];
+        secondaryColor = hexToHSL(primaryColor.slice(1));
+        thirdColor = hexToHSL(primaryColor.slice(1), true);
+        circle.style.background = primaryColor;
+        message.innerText = POSITIVE_SENTENCES[Math.floor(Math.random()*POSITIVE_SENTENCES.length)];
+    },150)
+}
+
+document.body.onload = () => {
     const message = document.getElementById('message');
     message.innerText = POSITIVE_SENTENCES[Math.floor(Math.random()*POSITIVE_SENTENCES.length)];
-    // message.style.webkitTextStroke = `1px ${SECONDARY_COLOR}`;
+    // message.style.webkitTextStroke = `1px ${secondaryColor}`;
 
     const CIRCLE_ANIMATON_DURATION = 2000;
     const SHADOW_MOVE_VALUE = 50;
@@ -202,8 +218,8 @@ document.body.onload = () => {
     var shadowMoveAmountY = Math.floor(Math.random() * (SHADOW_MOVE_VALUE - (-SHADOW_MOVE_VALUE) + 1)) + (-SHADOW_MOVE_VALUE);
     
     const circle = document.getElementById('circle');
-    circle.style.background = PRIMARY_COLOR;
-    circle.style.boxShadow = `inset 0 0 100px ${THIRD_COLOR}`
+    circle.style.background = primaryColor;
+    circle.style.boxShadow = `inset 0 0 100px ${thirdColor}`
     circle.animate(
         [
             {
@@ -211,7 +227,7 @@ document.body.onload = () => {
             },
             {
                 width: "300px",
-                filter: `blur(40px) drop-shadow(${shadowMoveAmountX}px ${shadowMoveAmountY}px 50px ${SECONDARY_COLOR})`
+                filter: `blur(40px) drop-shadow(${shadowMoveAmountX}px ${shadowMoveAmountY}px 50px ${secondaryColor})`
             },
             {
                 filter: "blur(30px)"
@@ -234,10 +250,10 @@ document.body.onload = () => {
                 {
                     width: "300px",
                     filter: `blur(40px)
-                    drop-shadow(${shadowMoveAmountX}px ${shadowMoveAmountY}px 20px ${SECONDARY_COLOR}) 
-                    drop-shadow(${shadowMoveAmountX}px ${shadowMoveAmountY}px 40px ${SECONDARY_COLOR}) 
-                    drop-shadow(${shadowMoveAmountXSecondary}px ${shadowMoveAmountYSecondary}px 20px ${PRIMARY_COLOR})
-                    drop-shadow(${shadowMoveAmountXSecondary}px ${shadowMoveAmountYSecondary}px 40px ${PRIMARY_COLOR})`
+                    drop-shadow(${shadowMoveAmountX}px ${shadowMoveAmountY}px 20px ${secondaryColor}) 
+                    drop-shadow(${shadowMoveAmountX}px ${shadowMoveAmountY}px 40px ${secondaryColor}) 
+                    drop-shadow(${shadowMoveAmountXSecondary}px ${shadowMoveAmountYSecondary}px 20px ${primaryColor})
+                    drop-shadow(${shadowMoveAmountXSecondary}px ${shadowMoveAmountYSecondary}px 40px ${primaryColor})`
                 },
                 {
                     filter: "blur(30px)"
